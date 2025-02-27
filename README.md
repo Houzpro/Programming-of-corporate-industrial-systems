@@ -2,7 +2,7 @@
 
 <div align="center">
   <img src="https://img.shields.io/badge/Статус-В%20процессе-yellow" alt="Статус: В процессе"/>
-  <img src="https://img.shields.io/badge/Семестр-1-blue" alt="Семестр: 2 "/>
+  <img src="https://img.shields.io/badge/Семестр-2-blue" alt="Семестр: 2"/>
 </div>
 
 ## Информация о студенте
