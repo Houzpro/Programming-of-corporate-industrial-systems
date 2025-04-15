@@ -1,3 +1,3 @@
-module PR1
+module pr2
 
-go 1.23.4
+go 1.24

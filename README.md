@@ -1,116 +1,92 @@
-# Текстовый анализатор
+# File Analyzer Application
 
-Консольное приложение на Go для обработки текстовых файлов с функциями открытия, чтения и поиска определенных фраз в тексте.
+## Overview
+The File Analyzer Application is a client-server application developed in Go that allows users to analyze text files. The server processes incoming text files from clients using an HTTP API, counts the number of words, characters, and lines, and returns the analysis results back to the clients.
 
-## Функциональность
-
-Программа предоставляет следующие возможности:
-- Интерактивный консольный интерфейс
-- Чтение и анализ текстовых файлов
-- Подсчет общего количества слов в файле
-- Поиск и подсчет заданной фразы в тексте
-- Обработка ошибок при работе с файлами
-
-## Структура проекта
-
+## Project Structure
 ```
-/ПР1
-├── main.go          # Основной код программы
-├── main_test.go     # Тесты
-├── go.mod           # Файл модуля Go
-├── test.txt         # Тестовый файл для анализа
-└── README.md        # Документация (этот файл)
-```
-
-## Основные компоненты кода
-
-### main.go
-
-Файл содержит три основные функции:
-
-1. **main()** - Точка входа в программу:
-   - Инициализирует интерактивный терминал
-   - Обрабатывает пользовательский ввод
-   - Выполняет команды по анализу файлов
-
-2. **readFile(filePath string) (string, error)** - Чтение содержимого файла:
-   - Открывает файл по указанному пути
-   - Читает все строки файла
-   - Объединяет содержимое в строку
-   - Возвращает содержимое файла или ошибку
-
-3. **searchPhrase(content, phrase string) (int, int)** - Анализ текста:
-   - Разбивает текст на слова
-   - Подсчитывает общее количество слов
-   - Находит количество вхождений указанной фразы
-   - Возвращает результаты подсчета
-
-### main_test.go
-
-Содержит тесты для проверки корректности работы функций:
-
-1. **TestSearchPhrase** - Проверяет нахождение фразы в тексте
-2. **TestSearchPhraseNotFound** - Проверяет случай, когда фраза не найдена
-3. **TestReadFile** - Проверяет правильность чтения файла
-4. **TestMultipleOccurrences** - Проверяет нахождение множественных вхождений фразы
-
-## Использование программы
-
-### Запуск программы
-
-```bash
-go run main.go
+file-analyzer-app
+├── cmd
+│   ├── client
+│   │   └── main.go        # Entry point for the client application
+│   └── server
+│       └── main.go        # Entry point for the server application
+├── internal
+│   ├── analyzer
+│   │   └── analyzer.go    # Logic for analyzing text files
+│   ├── models
+│   │   └── fileanalysis.go # Structure for file analysis results
+│   └── utils
+│       └── fileutils.go    # Utility functions for file handling
+├── pkg
+│   └── network
+│       └── protocol.go     # HTTP protocol definitions
+├── go.mod                  # Go module definition
+├── go.sum                  # Module dependency checksums
+└── README.md               # Project documentation
 ```
 
-### Доступные команды
+## Setup Instructions
+1. **Clone the repository:**
+   ```
+   git clone <repository-url>
+   cd file-analyzer-app
+   ```
 
-После запуска программы доступны следующие команды:
+2. **Install dependencies:**
+   ```
+   go mod tidy
+   ```
 
-- **анализ <путь_к_файлу> <фраза_для_поиска>** - Анализирует указанный файл и ищет заданную фразу
-  ```
-  > анализ test.txt hello world
-  ```
+3. **Run the server:**
+   ```
+   go run cmd/server/main.go
+   ```
 
-- **выход** - Завершает работу программы
-  ```
-  > выход
-  ```
+4. **Run the client:**
+   ```
+   go run cmd/client/main.go <path-to-text-file1> <path-to-text-file2> ...
+   ```
 
-### Примеры использования
+## Usage
+- The client connects to the server and uploads one or more text files for analysis.
+- The server processes the files and returns the analysis results, including the number of words, characters, and lines for each file.
+- You can also use Postman to interact with the API:
+  - Single file: Send a POST request to `http://localhost:8080/analyze` with a file attached in the form-data with key name "file"
+  - Multiple files: Send a POST request to `http://localhost:8080/analyze-batch` with files attached in the form-data with key name "files"
+  - The server will respond with a JSON containing the analysis results
 
+## API Endpoints
+- `POST /analyze` - Upload a single file for analysis
+- `POST /analyze-batch` - Upload multiple files for batch analysis
+- `GET /status` - Check server status
+
+## Example
+After running the client with multiple text files, you might see output like this:
 ```
-> анализ test.txt hello
-Общее количество слов в файле: 11
-Количество вхождений фразы 'hello': 4
+Analysis results:
 
-> анализ test.txt "is a"
-Общее количество слов в файле: 11
-Количество вхождений фразы 'is a': 1
+Analysis for file1.txt:
+  Words: 120
+  Characters: 800
+  Lines: 15
+
+Analysis for file2.txt:
+  Words: 95
+  Characters: 620
+  Lines: 10
 ```
 
-## Запуск тестов
+## Using Postman
+1. Open Postman and create a new POST request
+2. Set the URL to `http://localhost:8080/analyze-batch`
+3. Go to the Body tab, select form-data
+4. Add a key named "files" and select "File" from the dropdown
+5. Click "Select Files" and choose multiple text files
+6. Click "Send" to get the analysis results for all files
 
-```bash
-go test
-```
+## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-Для подробного вывода:
-
-```bash
-go test -v
-```
-
-## Принципы работы с памятью
-
-Программа использует эффективные подходы к управлению памятью:
-
-1. **Отложенное закрытие файлов** (defer file.Close()) - гарантирует освобождение ресурсов даже при возникновении ошибок.
-2. **strings.Builder** для сборки содержимого файла - более эффективен по памяти по сравнению с конкатенацией строк.
-3. **Передача строк по значению** - в Go строки неизменяемы и эффективно передаются по значению.
-
-## Обработка ошибок
-
-Программа включает обработку типичных ошибок:
-- Проверка корректности команд пользователя
-- Обработка ошибок при открытии файла
-- Обработка ошибок при чтении файла
+## License
+This project is licensed under the MIT License. See the LICENSE file for details.
