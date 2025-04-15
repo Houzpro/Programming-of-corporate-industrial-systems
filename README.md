@@ -1,92 +1,68 @@
-# File Analyzer Application
+# Приложение анализатора файлов
 
-## Overview
-The File Analyzer Application is a client-server application developed in Go that allows users to analyze text files. The server processes incoming text files from clients using an HTTP API, counts the number of words, characters, and lines, and returns the analysis results back to the clients.
+## Обзор
+Приложение анализатора файлов — это клиент-серверное приложение, разработанное на Go, которое позволяет пользователям анализировать текстовые файлы. Сервер обрабатывает входящие текстовые файлы от клиентов через HTTP API, подсчитывает количество слов, символов и строк, а затем возвращает результаты анализа клиентам.
 
-## Project Structure
+## Структура проекта
 ```
 file-analyzer-app
 ├── cmd
 │   ├── client
-│   │   └── main.go        # Entry point for the client application
+│   │   └── main.go        # Точка входа для клиентского приложения
 │   └── server
-│       └── main.go        # Entry point for the server application
+│       └── main.go        # Точка входа для серверного приложения
 ├── internal
 │   ├── analyzer
-│   │   └── analyzer.go    # Logic for analyzing text files
+│   │   └── analyzer.go    # Логика для анализа текстовых файлов
 │   ├── models
-│   │   └── fileanalysis.go # Structure for file analysis results
+│   │   └── fileanalysis.go # Структура для результатов анализа файлов
 │   └── utils
-│       └── fileutils.go    # Utility functions for file handling
+│       └── fileutils.go    # Вспомогательные функции для работы с файлами
 ├── pkg
 │   └── network
-│       └── protocol.go     # HTTP protocol definitions
-├── go.mod                  # Go module definition
-├── go.sum                  # Module dependency checksums
-└── README.md               # Project documentation
+│       └── protocol.go     # Определения HTTP протокола
+├── go.mod                  # Определение модуля Go
+├── go.sum                  # Контрольные суммы зависимостей модуля
+└── README.md               # Документация проекта
 ```
 
-## Setup Instructions
-1. **Clone the repository:**
+## Инструкции по установке
+1. **Клонируйте репозиторий:**
    ```
    git clone <repository-url>
    cd file-analyzer-app
    ```
 
-2. **Install dependencies:**
+2. **Установите зависимости:**
    ```
    go mod tidy
    ```
 
-3. **Run the server:**
+3. **Запустите сервер:**
    ```
    go run cmd/server/main.go
    ```
 
-4. **Run the client:**
-   ```
-   go run cmd/client/main.go <path-to-text-file1> <path-to-text-file2> ...
-   ```
+## Использование
+Используем Postman для взаимодействия с API:
+  - Один файл: Отправьте POST запрос на `http://localhost:8080/analyze` с файлом, прикрепленным в form-data с именем ключа "file"
+  - Несколько файлов: Отправьте POST запрос на `http://localhost:8080/analyze-batch` с файлами, прикрепленными в form-data с именем ключа "files"
+  - Сервер ответит JSON-объектом, содержащим результаты анализа
 
-## Usage
-- The client connects to the server and uploads one or more text files for analysis.
-- The server processes the files and returns the analysis results, including the number of words, characters, and lines for each file.
-- You can also use Postman to interact with the API:
-  - Single file: Send a POST request to `http://localhost:8080/analyze` with a file attached in the form-data with key name "file"
-  - Multiple files: Send a POST request to `http://localhost:8080/analyze-batch` with files attached in the form-data with key name "files"
-  - The server will respond with a JSON containing the analysis results
+## Конечные точки API
+- `POST /analyze` - Загрузка одного файла для анализа
+- `POST /analyze-batch` - Загрузка нескольких файлов для пакетного анализа
+- `GET /status` - Проверка статуса сервера
 
-## API Endpoints
-- `POST /analyze` - Upload a single file for analysis
-- `POST /analyze-batch` - Upload multiple files for batch analysis
-- `GET /status` - Check server status
 
-## Example
-After running the client with multiple text files, you might see output like this:
-```
-Analysis results:
+## Использование Postman
+1. Откройте Postman и создайте новый POST запрос
+2. Установите URL на `http://localhost:8080/analyze-batch`
+3. Перейдите на вкладку Body, выберите form-data
+4. Добавьте ключ с именем "files" и выберите "File" из выпадающего списка
+5. Нажмите "Select Files" и выберите несколько текстовых файлов
+6. Нажмите "Send", чтобы получить результаты анализа для всех файлов
 
-Analysis for file1.txt:
-  Words: 120
-  Characters: 800
-  Lines: 15
-
-Analysis for file2.txt:
-  Words: 95
-  Characters: 620
-  Lines: 10
-```
-
-## Using Postman
-1. Open Postman and create a new POST request
-2. Set the URL to `http://localhost:8080/analyze-batch`
-3. Go to the Body tab, select form-data
-4. Add a key named "files" and select "File" from the dropdown
-5. Click "Select Files" and choose multiple text files
-6. Click "Send" to get the analysis results for all files
-
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
-
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+![Результат анализа нескольких файлов](image.png)
+![Результат анализа одного файла](image-1.png)
+![Статус сервера](image-2.png)
