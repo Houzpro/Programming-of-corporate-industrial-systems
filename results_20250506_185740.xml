@@ -1,0 +1,14 @@
+<GameResult>
+  <StartTime>2025-05-06T18:56:33+03:00</StartTime>
+  <EndTime>2025-05-06T18:57:40+03:00</EndTime>
+  <SecretCode>CHQD</SecretCode>
+  <PlayerStat>
+    <Name>Player1</Name>
+    <Attempts>4</Attempts>
+  </PlayerStat>
+  <PlayerStat>
+    <Name>Player2</Name>
+    <Attempts>1</Attempts>
+  </PlayerStat>
+  <Winner>Player1</Winner>
+</GameResult>

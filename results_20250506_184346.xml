@@ -1,0 +1,14 @@
+<GameResult>
+  <StartTime>2025-05-06T18:43:19+03:00</StartTime>
+  <EndTime>2025-05-06T18:43:46+03:00</EndTime>
+  <SecretCode>Q3D2</SecretCode>
+  <PlayerStat>
+    <Name>Player1</Name>
+    <Attempts>0</Attempts>
+  </PlayerStat>
+  <PlayerStat>
+    <Name>Player2</Name>
+    <Attempts>1</Attempts>
+  </PlayerStat>
+  <Winner>Player2</Winner>
+</GameResult>

@@ -1,0 +1,14 @@
+<GameResult>
+  <StartTime>2025-05-06T17:54:36+03:00</StartTime>
+  <EndTime>2025-05-06T17:55:44+03:00</EndTime>
+  <SecretCode>079G</SecretCode>
+  <PlayerStat>
+    <Name>Player1</Name>
+    <Attempts>10</Attempts>
+  </PlayerStat>
+  <PlayerStat>
+    <Name>Player2</Name>
+    <Attempts>7</Attempts>
+  </PlayerStat>
+  <Winner>Player2</Winner>
+</GameResult>

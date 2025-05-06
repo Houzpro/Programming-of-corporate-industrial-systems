@@ -1,0 +1,14 @@
+<GameResult>
+  <StartTime>2025-05-06T17:34:52+03:00</StartTime>
+  <EndTime>2025-05-06T17:35:39+03:00</EndTime>
+  <SecretCode>STFA</SecretCode>
+  <PlayerStat>
+    <Name>Player1</Name>
+    <Attempts>2</Attempts>
+  </PlayerStat>
+  <PlayerStat>
+    <Name>Player2</Name>
+    <Attempts>2</Attempts>
+  </PlayerStat>
+  <Winner>Player1</Winner>
+</GameResult>

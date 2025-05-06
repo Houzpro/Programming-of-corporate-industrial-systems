@@ -1,0 +1,14 @@
+<GameResult>
+  <StartTime>2025-05-06T19:00:47+03:00</StartTime>
+  <EndTime>2025-05-06T19:02:16+03:00</EndTime>
+  <SecretCode>NIJ7</SecretCode>
+  <PlayerStat>
+    <Name>Player2</Name>
+    <Attempts>3</Attempts>
+  </PlayerStat>
+  <PlayerStat>
+    <Name>Player1</Name>
+    <Attempts>10</Attempts>
+  </PlayerStat>
+  <Winner>Player2</Winner>
+</GameResult>
