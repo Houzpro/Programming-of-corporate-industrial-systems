@@ -1,3 +1,0 @@
-uploads/**/*.txt
-# Don't ignore the .gitkeep file
-!uploads/**/.gitkeep
