@@ -7,7 +7,6 @@ import (
 	"sync"
 )
 
-// FileAnalysis holds the results of the file analysis.
 type FileAnalysis struct {
 	Filename  string
 	WordCount int
@@ -15,13 +14,12 @@ type FileAnalysis struct {
 	LineCount int
 }
 
-// AnalyzeFile analyzes the contents of a given file and returns a FileAnalysis struct.
 func AnalyzeFile(filename string, wg *sync.WaitGroup, mu *sync.Mutex, results *[]FileAnalysis) {
 	defer wg.Done()
 
 	file, err := os.Open(filename)
 	if err != nil {
-		return // Handle error (e.g., log it)
+		return
 	}
 	defer file.Close()
 
